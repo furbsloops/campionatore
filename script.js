@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const maxHeight = 30; // Massima altezza in celle
     const maxDimensionPerCell = 60; // Massima dimensione di ogni cella in pixel
 
-
     const imagePaths = [
         'Piastrelle modulari garage/Black.png',
         'Piastrelle modulari garage/Blue.png',
@@ -34,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         image.src = imagePath;
         image.style.width = '100%';
         image.style.height = '100%';
-        image.draggable = false;
+        image.draggable = false; 
         square.appendChild(image);
         square.addEventListener('click', function () {
             selectedImage = imagePath;
@@ -133,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 image.src = selectedImage;
                 image.style.width = '100%';
                 image.style.height = '100%';
-                image.draggable = false;
+                image.draggable = false; 
                 square.innerHTML = '';
                 square.appendChild(image);
                 square.setAttribute('data-color', selectedImage);
@@ -227,21 +226,14 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('applyDimensions').addEventListener('click', function () {
         let widthInMeters = parseFloat(document.getElementById('inputWidth').value);
         let heightInMeters = parseFloat(document.getElementById('inputHeight').value);
-        let tileSize = parseFloat(document.getElementById('tileSizeSelector').value); // Prendi il valore selezionato
-
-        // Controllo se i valori sono inferiori a 5
-        if (widthInMeters < 5 || heightInMeters < 5) {
-            alert("Il valore minimo è 5");
-            return;
-        }
 
         if (widthInMeters > 40 || heightInMeters > 40) {
             alert("Max 40m");
             return;
         }
 
-        let tilesWidth = Math.ceil(widthInMeters / tileSize); // Usa il valore di tileSize
-        let tilesHeight = Math.ceil(heightInMeters / tileSize); // Usa il valore di tileSize
+        let tilesWidth = Math.ceil(widthInMeters / 0.4);
+        let tilesHeight = Math.ceil(heightInMeters / 0.4);
         updateGrid(tilesWidth, tilesHeight);
     });
 
@@ -268,49 +260,3 @@ document.addEventListener("DOMContentLoaded", function () {
         // Aggiorna qualcosa quando viene selezionata un'immagine
     }
 });
-
-function applyBorderImage() {
-    const cells = rightContainer.querySelectorAll('.color-square');
-    const width = maxWidth;
-    const height = maxHeight;
-
-    cells.forEach((cell, index) => {
-        const row = Math.floor(index / width);
-        const col = index % width;
-
-        // Rimuovi eventuali immagini esistenti
-        removeBorderAndAngleImages(cell);
-
-        // Se la cella è su un bordo, aggiungi l'immagine del bordo
-        if (row === 0 || row === height - 1 || col === 0 || col === width - 1) {
-            addBorderImage(cell);
-        }
-    });
-}
-
-function applyAngleImage() {
-    const cells = rightContainer.querySelectorAll('.color-square');
-    const width = maxWidth;
-    const height = maxHeight;
-
-    // Indici delle celle angolari
-    const angleIndices = [0, width - 1, width * (height - 1), width * height - 1];
-    angleIndices.forEach(index => {
-        const cell = cells[index];
-        removeBorderAndAngleImages(cell);
-        addAngleImage(cell);
-    });
-}
-
-tileSizeSelector.addEventListener('change', function () {
-    tileSize = parseFloat(this.value);
-    updateGridBasedOnTileSize();
-});
-
-function updateGridBasedOnTileSize() {
-    // Qui aggiorni la griglia in base alla dimensione della piastrella selezionata
-    const tilesWidth = Math.ceil(parseFloat(document.getElementById('inputWidth').value) / tileSize) || maxWidth;
-    const tilesHeight = Math.ceil(parseFloat(document.getElementById('inputHeight').value) / tileSize) || maxHeight;
-    updateGrid(tilesWidth, tilesHeight);
-}
-
