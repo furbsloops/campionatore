@@ -229,9 +229,9 @@ document.addEventListener("DOMContentLoaded", function () {
         let heightInMeters = parseFloat(document.getElementById('inputHeight').value);
         let tileSize = parseFloat(document.getElementById('tileSizeSelector').value); // Prendi il valore selezionato
 
-        // Controllo se i valori sono inferiori a 5
-        if (widthInMeters < 5 || heightInMeters < 5) {
-            alert("Il valore minimo è 5");
+        // Controllo se i valori sono inferiori a 4
+        if (widthInMeters < 4 || heightInMeters < 4) {
+            alert("Il valore minimo è 4");
             return;
         }
 
