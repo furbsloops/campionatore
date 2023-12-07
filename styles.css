@@ -1,0 +1,251 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #009fff 0%, #ec2f4b 100%);
+  color: white;
+}
+
+.right-color-container {
+  max-width: 700px; /* Imposta la larghezza massima del contenitore */
+  max-height: 700px; /* Imposta l'altezza massima del contenitore */
+  overflow: auto; /* Applica lo scorrimento se il contenuto supera le dimensioni massime */
+  display: grid; /* Continua a usare il layout a griglia */
+  grid-gap: 2px; /* Aggiusta il gap tra le celle se necessario */
+  /* Altre proprietà di stile se necessario */
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column; /* Imposta la direzione della colonna */
+  gap: 10px;
+  margin-left: 50px;
+  margin-top: 15%;
+  margin-right: 40px;
+}
+
+.buttons button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  height: 40px;
+  margin-top: 45%;
+}
+
+.buttons button:hover {
+  background-color: #45a049;
+}
+
+#fillButton {
+  display: flex;
+  position: absolute;
+  margin-top: 100px;
+  right: 10px;
+  color: black;
+}
+
+#tileCounter {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(120px, 1fr)
+  ); /* Colonnes dinamiche */
+  gap: 10px;
+  justify-content: center;
+  align-content: center;
+}
+
+#tileCounter > div {
+  text-align: center;
+}
+
+.tile-counter img {
+  width: 20px; /* Larghezza fissa per le immagini nel contatore */
+  height: 20px; /* Altezza fissa per le immagini nel contatore */
+  margin: 2px;
+  margin-top: 20%;
+  margin-right: 20px;
+}
+
+.color-selector {
+  display: flex;
+
+  .areamcounters {
+    display: flex;
+    margin: 3%;
+    justify-content: space-between;
+    margin-left: 15%;
+    margin-right: 15%;
+  }
+
+  .sizer {
+    max-width: 90%; /* Oppure un valore in vh o vw per adattarsi alle dimensioni della finestra */
+    margin: 0 auto; /* Centrare il contenuto orizzontalmente */
+  }
+  /* Regole per la griglia di sinistra */
+  .color-grid {
+    width: 20%;
+    height: 9vh;
+    background-color: #f0f0f0;
+    padding: 3px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    margin: 50px 30px 0 30px;
+    margin-top: 15%;
+    margin-bottom: 20%;
+    align-items: center;
+    justify-content: center;
+    background: none;
+  }
+
+  .grid-options {
+    margin-top: 4%;
+    margin-right: 15%;
+    margin-bottom: 5%;
+  }
+  .left-color-square {
+    width: 60px; /* Larghezza fissa per le immagini nella griglia sinistra */
+    height: 60px; /* Altezza fissa per le immagini nella griglia sinistra */
+    position: relative;
+  }
+
+  .left-color-square::after {
+    content: attr(
+      data-color
+    ); /* Aggiunto contenuto dinamico con il nome del colore */
+    position: absolute;
+    bottom: -20px; /* Spostato sotto il quadrato */
+    left: 50%; /* Posizionato al centro orizzontale */
+    transform: translateX(-50%);
+  }
+
+  .color-square {
+    width: 30px; /* Larghezza fissa per le immagini */
+    height: 30px; /* Altezza fissa per le immagini */
+    position: relative;
+    user-select: none;
+    border: 1px solid #fff; /* Aggiungi un bordo bianco (o un altro colore a tua scelta) a ciascuna cella */
+    box-sizing: border-box; /* Assicurati che il bordo sia incluso nel calcolo delle dimensioni della cella */
+  }
+
+  .color-square:hover {
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.9);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .color-square img {
+    width: 100%; /* Riempie la larghezza della cella */
+    height: 100%; /* Riempie l'altezza della cella */
+  }
+
+  /* Regole per la griglia di destra */
+  .color-container {
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(21, 1fr);
+    gap: 0.5px;
+    padding: 30px;
+    background-color: #e0e0e0;
+    margin-top: 10%;
+    margin-left: 200px;
+    margin-right: 40px;
+    border-radius: 18px;
+    user-select: none; /* Impedisce la selezione */
+    color: white;
+  }
+
+  .color-container::selection {
+    background-color: transparent;
+  }
+
+  .right-color-square {
+    width: 30px;
+    height: 30px;
+    margin: 2px;
+  }
+  .right-color-square img {
+    width: 100%; /* Riempie la larghezza della cella */
+    height: 100%; /* Riempie l'altezza della cella */
+  }
+
+  .selected-color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    font-weight: bold;
+    background-color: #fff;
+  }
+}
+
+.top-container {
+  background: linear-gradient(
+    135deg,
+    #005f7f 0%,
+    #a3182b 100%
+  ); /* Gradiente scuro che si abbina allo sfondo */
+  color: #ffffff; /* Testo Bianco per un contrasto elevato */
+  text-align: center;
+  font-size: 40px;
+  padding: 5%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-container {
+  background: linear-gradient(
+    135deg,
+    #005f7f 0%,
+    #a3182b 100%
+  ); /* Gradiente scuro che si abbina allo sfondo */
+  color: #ffffff; /* Testo Bianco per un contrasto elevato */
+  text-align: center;
+  font-size: 40px;
+  padding: 5%;
+  margin-top: 20%;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Media query per smartphone con larghezza massima di 767px */
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 14px; /* Riduci la dimensione del testo per adattarla agli schermi più piccoli */
+  }
+
+  .buttons {
+    width: 25%;
+    margin-left: 10px; /* Riduci il margine sinistro per adattarsi alla larghezza dello schermo */
+    margin-right: 30px; /* Riduci il margine destro per adattarsi alla larghezza dello schermo */
+    margin-top: 62%; /* Riduci il margine superiore per adattarsi alla larghezza dello schermo */
+  }
+
+  .buttons button {
+    margin-top: 5%; /* Riduci il margine superiore per adattarsi alla larghezza dello schermo */
+  }
+
+  .color-selector .color-grid {
+    width: 100%; /* Riduci la larghezza della griglia di sinistra per adattarsi alla larghezza dello schermo */
+    margin: 10px; /* Riduci il margine per adattarsi alla larghezza dello schermo */
+    margin-top: 40%; /* Riduci il margine superiore per adattarsi alla larghezza dello schermo */
+    margin-bottom: 10%; /* Riduci il margine inferiore per adattarsi alla larghezza dello schermo */
+    margin-right: -30%;
+  }
+
+  .color-container {
+    margin-left: 10px; /* Riduci il margine sinistro per adattarsi alla larghezza dello schermo */
+    margin-right: 10px; /* Riduci il margine destro per adattarsi alla larghezza dello schermo */
+  }
+  .grid-spacing-adjusted .color-square {
+    margin: 2px; /* O il valore di default che preferisci */
+  }
+}
