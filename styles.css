@@ -233,7 +233,6 @@ body {
 @media screen and (max-width: 767px) {
   body {
     font-size: 14px; /* Riduci la dimensione del testo per adattarla agli schermi più piccoli */
-    background-color: lightslategray;
   }
 
   .buttons {
