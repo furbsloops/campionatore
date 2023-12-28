@@ -5,6 +5,19 @@ body {
   color: white;
 }
 
+#rightContainer {
+  padding: 2px;
+  border: 8px solid transparent; /* Bordo trasparente di default */
+}
+
+.bordo-colore {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid #000; /* Per visualizzare il colore o l'assenza di esso */
+}
+
 .right-color-container {
   max-width: 700px; /* Imposta la larghezza massima del contenitore */
   max-height: 700px; /* Imposta l'altezza massima del contenitore */

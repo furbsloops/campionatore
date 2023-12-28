@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const maxDimensionPerCell = 60; // Massima dimensione di ogni cella in pixel
 
 
+
+
     const imagePaths = [
         'Piastrelle modulari garage/Black.png',
         'Piastrelle modulari garage/Blue.png',
@@ -26,6 +28,8 @@ document.addEventListener("DOMContentLoaded", function () {
         'Piastrelle modulari garage/Yellow.png',
         // ... altri percorsi di immagini ...
     ];
+
+
 
     imagePaths.forEach(imagePath => {
         const square = document.createElement('div');
@@ -100,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         renderTileCount();
         updateSquareMeters();
     }
+
 
 
     function fillSquare(square, imagePath) {
@@ -269,6 +274,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
+// Gestione del cambio colore del bordo
+const rightContainer = document.getElementById('rightContainer');
+const bordiColore = document.querySelectorAll('.bordo-colore');
+
+bordiColore.forEach(el => {
+    el.addEventListener('click', function () {
+        // Se il colore di sfondo è "none", imposta il bordo come trasparente
+        const coloreSelezionato = this.style.backgroundColor === "" ? "transparent" : this.style.backgroundColor;
+        rightContainer.style.border = `8px solid ${coloreSelezionato}`;
+    });
+});
+
 function applyBorderImage() {
     const cells = rightContainer.querySelectorAll('.color-square');
     const width = maxWidth;
@@ -313,4 +330,180 @@ function updateGridBasedOnTileSize() {
     const tilesHeight = Math.ceil(parseFloat(document.getElementById('inputHeight').value) / tileSize) || maxHeight;
     updateGrid(tilesWidth, tilesHeight);
 }
+
+const borderButton = document.getElementById('bordi'); // Assicurati che esista nel tuo HTML
+let isBorderMode = false;
+
+borderButton.addEventListener('click', function () {
+    isBorderMode = !isBorderMode; // Attiva o disattiva la modalità bordi
+    if (isBorderMode) {
+        // Cambia lo stile del pulsante o fornisce un feedback visivo
+        borderButton.classList.add('active');
+    } else {
+        borderButton.classList.remove('active');
+    }
+});
+
+// Questa funzione aggiunge un bordo a un lato di una cella
+function addBorder(square, side) {
+    if (isBorderMode) {
+        square.style['border-' + side] = '2px solid red';
+    }
+}
+
+// Aggiungi listener per il bordo a tutte le celle esterne
+// (questo è un esempio, devi adattarlo alla tua logica di grid)
+const externalSquares = getExternalSquares(); // Implementa questa funzione in base alla tua logica
+externalSquares.forEach(square => {
+    square.addEventListener('click', function (event) {
+        const side = getClickedSide(event); // Implementa questa funzione per determinare il lato cliccato
+        addBorder(square, side);
+    });
+});
+
+function addImageBorderToCell(cell, imagePath) {
+    const borderImageElement = document.createElement('img');
+    borderImageElement.src = imagePath;
+    borderImageElement.style.width = '100%';
+    borderImageElement.style.height = '100%';
+    borderImageElement.style.position = 'absolute';
+    borderImageElement.style.top = '0';
+    borderImageElement.style.left = '0';
+
+    // Assicurati che la cella sia relativa per posizionare assolutamente l'immagine del bordo
+    cell.style.position = 'relative';
+    cell.appendChild(borderImageElement);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    // ... il tuo codice esistente ...
+
+    const borderButton = document.getElementById('bordi'); // Assicurati che l'ID corrisponda al tuo bottone
+    let isBorderMode = false;
+
+    borderButton.addEventListener('click', function () {
+        isBorderMode = !isBorderMode; // Attiva o disattiva la modalità bordi
+        this.classList.toggle('active', isBorderMode); // Opzionale: cambia l'aspetto del bottone
+    });
+
+    const gridSquares = document.querySelectorAll('.color-square'); // Seleziona tutti i quadrati della griglia
+    gridSquares.forEach(square => {
+        square.addEventListener('click', function (event) {
+            if (isBorderMode) {
+                // Determina qui quale bordo aggiungere in base alla posizione del click
+                // Ad esempio, potresti aggiungere 'border-top' se il click è vicino al bordo superiore del quadrato
+                square.classList.toggle('border-top'); // Questo è solo un esempio
+            }
+        });
+    });
+
+    // Funzione per aggiungere bordi
+    function toggleBorder(square) {
+        if (isBorderMode) {
+            // Controlla se la cella è sul bordo della griglia
+            const index = Array.from(rightContainer.children).indexOf(square);
+            const width = parseInt(window.getComputedStyle(rightContainer).getPropertyValue('grid-template-columns').split(' ').length);
+            const totalSquares = rightContainer.children.length;
+            const height = totalSquares / width;
+
+            // Condizioni per le celle sul bordo
+            const isFirstRow = index < width;
+            const isLastRow = index >= totalSquares - width;
+            const isFirstCol = index % width === 0;
+            const isLastCol = index % width === width - 1;
+
+            if (isFirstRow || isLastRow || isFirstCol || isLastCol) {
+                square.classList.toggle('bordered'); // Aggiungi una classe per gestire il bordo
+            }
+        }
+    }
+
+    // Aggiungi un listener di click a tutte le celle
+    rightContainer.addEventListener('click', function (event) {
+        const square = event.target.closest('.color-square');
+        if (square) {
+            toggleBorder(square);
+        }
+
+        // Aggiungi questa sezione per la gestione dei bordi
+        const borderButton = document.getElementById('bordi');
+        let isBorderMode = false;
+
+        borderButton.addEventListener('click', function () {
+            isBorderMode = !isBorderMode;
+            this.classList.toggle('active', isBorderMode); // Aggiungi una classe per lo styling se necessario
+        });
+
+        rightContainer.addEventListener('click', function (event) {
+            if (isBorderMode && event.target.classList.contains('color-square')) {
+                // Aggiungi il bordo a tutti i lati del quadrato cliccato
+                event.target.classList.toggle('border-active');
+            }
+
+            // ... il tuo codice esistente ...
+
+            const borderButton = document.getElementById('bordi');
+            let isBorderMode = false;
+
+            borderButton.addEventListener('click', function () {
+                isBorderMode = !isBorderMode;
+                this.classList.toggle('active', isBorderMode);
+            });
+
+            function toggleBorder(square) {
+                // Verifica se la cella è sul bordo della griglia
+                const cells = rightContainer.getElementsByClassName('color-square');
+                const index = Array.from(cells).indexOf(square);
+                const numRows = rightContainer.style.gridTemplateRows.split(' ').length;
+                const numCols = rightContainer.style.gridTemplateColumns.split(' ').length;
+                const row = Math.floor(index / numCols);
+                const col = index % numCols;
+
+                // Applica il bordo solo se la cella è su un bordo esterno
+                if (row === 0 || row === numRows - 1 || col === 0 || col === numCols - 1) {
+                    square.classList.toggle('bordered');
+                }
+            }
+
+            rightContainer.addEventListener('click', function (event) {
+                if (isBorderMode) {
+                    const square = event.target.closest('.color-square');
+                    if (square) {
+                        toggleBorder(square);
+                    }
+                }
+                const borderButton = document.getElementById('bordi');
+                let isBorderMode = false;
+
+                borderButton.addEventListener('click', function () {
+                    isBorderMode = !isBorderMode;
+                    // Aggiungi qui il codice per cambiare l'aspetto del bottone se necessario, ad esempio:
+                    // this.classList.toggle('active', isBorderMode);
+                });
+
+                rightContainer.addEventListener('click', function (event) {
+                    if (isBorderMode && event.target.classList.contains('color-square')) {
+                        // Qui aggiungi la logica per determinare se la cella cliccata è sul bordo.
+                        // Ciò potrebbe richiedere di conoscere la posizione della cella nella griglia.
+                        // Aggiungi poi la classe 'bordered' alla cella cliccata se è sul bordo.
+                        event.target.classList.toggle('bordered');
+                    }
+                });
+
+
+
+
+            });
+
+            // ... il resto del tuo codice ...
+
+        });
+
+    });
+
+    // Altri codici...
+});
+
+
+
 
