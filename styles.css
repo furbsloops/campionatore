@@ -163,13 +163,12 @@ body {
     display: grid;
     grid-template-columns: repeat(21, 1fr);
     grid-template-rows: repeat(21, 1fr);
-    gap: 0.5px;
+    gap: 0.1px;
     padding: 30px;
-    background-color: #e0e0e0;
+    background-color: none;
     margin-top: 10%;
     margin-left: 200px;
     margin-right: 40px;
-    border-radius: 18px;
     user-select: none; /* Impedisce la selezione */
     color: white;
   }
