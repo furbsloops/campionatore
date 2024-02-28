@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Selettore di Piastrelle</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Stile per la griglia sinistra */
+      .left-color-grid .color-square {
+        width: 80px;
+        height: 80px;
+        position: relative;
+      }
+      /* Resto dello stile */
+    </style>
+  </head>
+  <body>
+    <div class="sizer">
+      <div class="color-selector">
+        <div class="buttons">
+          <button id="refreshButton">Refresh</button>
+          <button id="riempi">Riempi</button>
+          <button id="scacchiera">Scacchiera</button>
+          <div class="bordo">
+            <h2>Terminali</h2>
+            <div
+              id="bordo-rosso"
+              class="bordo-colore"
+              style="background-color: black"
+            ></div>
+            <div
+              id="bordo-blu"
+              class="bordo-colore"
+              style="background-color: blue"
+            ></div>
+            <div
+              id="bordo-verde"
+              class="bordo-colore"
+              style="background-color: gray"
+            ></div>
+            <div
+              id="bordo-invisibile"
+              class="bordo-colore"
+              style="background-color: green"
+            ></div>
+            <div
+              id="bordo-rosso"
+              class="bordo-colore"
+              style="background-color: lightgreen"
+            ></div>
+            <div
+              id="bordo-blu"
+              class="bordo-colore"
+              style="background-color: lightyellow"
+            ></div>
+            <div
+              id="bordo-verde"
+              class="bordo-colore"
+              style="background-color: orange"
+            ></div>
+            <div
+              id="bordo-invisibile"
+              class="bordo-colore"
+              style="background-color: pink"
+            ></div>
+            <div
+              id="bordo-rosso"
+              class="bordo-colore"
+              style="background-color: #833ab4"
+            ></div>
+            <div
+              id="bordo-blu"
+              class="bordo-colore"
+              style="background-color: #bf2b26"
+            ></div>
+            <div
+              id="bordo-verde"
+              class="bordo-colore"
+              style="background-color: #f4c655"
+            ></div>
+            <div
+              id="bordo-invisibile"
+              class="bordo-colore"
+              style="background-color: none"
+            ></div>
+          </div>
+        </div>
+
+        <div class="color-grid left-color-grid" id="leftGrid"></div>
+
+        <div class="grid-options">
+          <div class="areamcounters">
+            <label for="inputWidth">Larghezza (m):</label>
+            <input
+              type="number"
+              id="inputWidth"
+              name="width"
+              min="4"
+              max="40"
+              step="0.1"
+              placeholder=""
+            />
+
+            <label for="inputHeight">Altezza (m):</label>
+            <input
+              type="number"
+              id="inputHeight"
+              name="height"
+              min="4"
+              max="40"
+              step="0.1"
+              placeholder=""
+            />
+            <label for="tileSizeSelector">Dimensione Piastrella:</label>
+            <select id="tileSizeSelector">
+              <option value="0.4">0.4m</option>
+              <option value="0.5">0.5m</option>
+            </select>
+            <button id="applyDimensions">Applica Dimensioni</button>
+          </div>
+          <div class="tile-counter" id="tileCounter"></div>
+          <div
+            class="color-container right-color-container grid-border"
+            id="rightContainer"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
